@@ -91,9 +91,48 @@ This is a plot showing the same average price distribution plotted spatially by 
 </p>
 This figure shows the distribution of listings per host in Seattle. It shows the same trend as shown by the Boston data. There is concentration of hosts with more than four listings towards the city center and the hosts with single or two to four listings are more evenly spread out.
 
-### Predict ratings for Boston listings
+## Predict ratings for Boston listings
+Now, let's look at predicting ratings for Boston listings based on the available listing details and descriptions.
+## Analyze ratings
+We begin by looking at the ratings available for the data that we have. Creating plots for the Boston ratings gives us -
+<p align="center">
+  <img src="https://github.com/SmritiMohapatra/airbnb-data-analysis/blob/master/img/Boston_review_scores_dist.png" />
+  <br>
+  <img src="https://github.com/SmritiMohapatra/airbnb-data-analysis/blob/master/img/Boston_review_scores_dist_wdnums.png" />
+</p>
+As is evident from the graphs, we have a very skewed distribution here. There are more than 800 reviews which arent rated, if we scrap that unlabeled data we will have even lesser data to work with. The plot is skewed to the higher side. There are hardly any negative reviews. Does Airbnb remove negatively listed reviews, or do the hosts remove them or is Airbnb listing reviews as very highly positive though they may not be. These arent questions we will try to answer right now, however.
+
+We will try to bin the ratings and look -
+<p align="center">
+  <img src="https://github.com/SmritiMohapatra/airbnb-data-analysis/blob/master/img/Boston_review_scores_5bins.png" />
+</p>
+This gives a clearer picture with the numbers. Half of the reviews fall in the 90-100 range. And 23% of the listings are unrated. It is surprising that the site has less than 1% low reviews.
+
+To finally make the predictions we will categorize the ratings into two bins to make the wisest use of our data. We will create two categories - ratings greater than 90 and ratings lesser than 90. We will take this step because more bins will mean lesser precision since we do not have enough data.
+
+This is how the distribution looks like binned into two categories - still skewed, but with more data points in the second category.
+<p align="center">
+  <img src="https://github.com/SmritiMohapatra/airbnb-data-analysis/blob/master/img/Boston_review_scores_2bins.png" />
+</p>
+
+To predict we will create new features that may help with the predictions. These are and not limited to distance of each listing from the city center, the various kinds of amenities, the lengths of the descriptive fields in the listing.  Finally after modelling we are able to predict the 90+ category with 75% precision and 90- category with 66% precision. These are decent results with the number of data points that we have.
+
+<p align="center">
+  <img src="https://github.com/SmritiMohapatra/airbnb-data-analysis/blob/master/img/precision_rf_2bins.png" />
+</p>
+
+And the features which most contribute to the prediction are -
+<p align="center">
+  <img src="https://github.com/SmritiMohapatra/airbnb-data-analysis/blob/master/img/feature_importance_2bins.png" />
+</p>
+The number of days the host has been with Airbnb and whether the host is a superhost or not matters. Also lengths of descriptive fields matter implying conscientiousness. Distance to the city center also matters
 
 ### Recap
+With the data we have we can predict ratings however to improve predictions we would want to -
+* Collect more data
+* Engineer more complex features - like distance to nearest subway stations, cleanliness from the cleanliness reviews  etc
+
+With the current data however we are able to decipher trends in prices and availiability, across seasons and neighbourhoods.
 
 ##### Libraries Used
 * Anaconda
